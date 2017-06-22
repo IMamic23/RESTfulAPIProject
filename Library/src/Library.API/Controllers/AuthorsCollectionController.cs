@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library.API.Controllers
 {
+    /// <summary>
+    /// The authors collection controller.
+    /// </summary>
     [Route("api/authorcollections")]
     public class AuthorsCollectionController : Controller
     {
