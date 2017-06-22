@@ -1,0 +1,9 @@
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\bin\Debug\netcoreapp1.0\Library.API.deps.json
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\bin\Debug\netcoreapp1.0\Library.API.runtimeconfig.json
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\bin\Debug\netcoreapp1.0\Library.API.runtimeconfig.dev.json
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\bin\Debug\netcoreapp1.0\Library.API.dll
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\bin\Debug\netcoreapp1.0\Library.API.pdb
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\obj\Debug\netcoreapp1.0\Library.API.csprojResolveAssemblyReference.cache
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\obj\Debug\netcoreapp1.0\Library.API.AssemblyInfo.cs
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\obj\Debug\netcoreapp1.0\Library.API.dll
+D:\_LEARNING_\asp-dot-net-core-restful-api-building\1-m1-exercise-files\project-json-based\start-end\Library\src\Library.API\obj\Debug\netcoreapp1.0\Library.API.pdb
