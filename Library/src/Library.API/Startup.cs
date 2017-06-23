@@ -14,6 +14,7 @@ using Library.API.Helpers;
 using Library.API.Models;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace Library.API
 {
@@ -89,6 +90,7 @@ namespace Library.API
 
                 cfg.CreateMap<BookForCreationDto, Book>();
                 cfg.CreateMap<BookForUpdateDto, Book>();
+                cfg.CreateMap<Book, BookForUpdateDto>();
             });
 
 
