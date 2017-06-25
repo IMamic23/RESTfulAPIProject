@@ -16,16 +16,15 @@ namespace Library.API.Controllers
     public class AuthorsController : Controller
     {    
         private readonly ILibraryRepository _libraryRepository;
-
         public AuthorsController(ILibraryRepository libraryRepository) => _libraryRepository = libraryRepository;
 
         [HttpGet]
-        public IActionResult GetAuthors()
+        public IActionResult GetAuthors(AuthorsResourceParameters authorsResourceParameters)
         {
-                var authorsFromRepo = _libraryRepository.GetAuthors();
+            var authorsFromRepo = _libraryRepository.GetAuthors(authorsResourceParameters);
 
-                var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
-                return Ok(authors);
+            var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
+            return Ok(authors);
         }
 
         [HttpGet("{id}", Name = "GetAuthor")]
