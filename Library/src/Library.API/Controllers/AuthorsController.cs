@@ -63,6 +63,7 @@ namespace Library.API.Controllers
                 case ResourceUriType.PreviousPage:
                     return _iUrlHelper.Link("GetAuthors", new
                     {
+                        orderBy = authorsResourceParameters.OrderBy,
                         searchQuery = authorsResourceParameters.SearchQuery,
                         genre = authorsResourceParameters.Genre,
                         pageNumber = authorsResourceParameters.PageNumber - 1,
@@ -71,6 +72,7 @@ namespace Library.API.Controllers
                 case ResourceUriType.NextPage:
                     return _iUrlHelper.Link("GetAuthors", new
                     {
+                        orderBy = authorsResourceParameters.OrderBy,
                         searchQuery = authorsResourceParameters.SearchQuery,
                         genre = authorsResourceParameters.Genre,
                         pageNumber = authorsResourceParameters.PageNumber + 1,
@@ -79,6 +81,7 @@ namespace Library.API.Controllers
                 default:
                     return _iUrlHelper.Link("GetAuthors", new
                     {
+                        orderBy = authorsResourceParameters.OrderBy,
                         searchQuery = authorsResourceParameters.SearchQuery,
                         genre = authorsResourceParameters.Genre,
                         pageNumber = authorsResourceParameters.PageNumber,
