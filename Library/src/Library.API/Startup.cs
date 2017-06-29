@@ -12,6 +12,7 @@ using Library.API.Services;
 using Library.API.Entities;
 using Library.API.Helpers;
 using Library.API.Models;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -49,7 +50,33 @@ namespace Library.API
             {
                 setupAction.ReturnHttpNotAcceptable = true;
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-                setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
+                //setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
+
+                var xmlDataContractSerializerInputFormatter =
+                    new XmlDataContractSerializerInputFormatter();
+                xmlDataContractSerializerInputFormatter.SupportedMediaTypes
+                    .Add("application/vnd.marvin.author.full+xml");
+                xmlDataContractSerializerInputFormatter.SupportedMediaTypes
+                    .Add("application/vnd.marvin.authorwithdateofdeath.full+xml");
+                setupAction.InputFormatters.Add(xmlDataContractSerializerInputFormatter);
+
+                var jsonInputFormatter = setupAction.InputFormatters
+                    .OfType<JsonInputFormatter>()
+                    .FirstOrDefault();
+
+                if (jsonInputFormatter != null)
+                {
+                    jsonInputFormatter.SupportedMediaTypes.Add("application/vnd.marvin.author.full+json");
+                    jsonInputFormatter.SupportedMediaTypes.Add("application/vnd.marvin.authorwithdateofdeath.full+json");
+                }
+
+                var jsonOutputFormatter = setupAction.OutputFormatters
+                    .OfType<JsonOutputFormatter>().FirstOrDefault();
+
+                if (jsonOutputFormatter != null)
+                {
+                    jsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.marvin.hateoas+json");
+                }
             })
             .AddJsonOptions(options =>
             {
@@ -75,6 +102,17 @@ namespace Library.API
             });
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddTransient<ITypeHelperService, TypeHelperService>();
+
+            services.AddHttpCacheHeaders(
+                (expirationModelOptions) =>
+                {
+                    expirationModelOptions.MaxAge = 600;
+                },
+                (validationModelOptions) =>
+                {
+                    validationModelOptions.AddMustRevalidate = true;
+                }
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,11 +155,12 @@ namespace Library.API
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => 
                     $"{src.FirstName} {src.LastName}"))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src =>
-                    src.DateOfBirth.GetCurrentAge()));
+                    src.DateOfBirth.GetCurrentAge(src.DateOfDeath)));
 
                 cfg.CreateMap<Book, BookDto>();
 
                 cfg.CreateMap<AuthorForCreationDto, Author>();
+                cfg.CreateMap<AuthorsForCreationWithDoD, Author>();
 
                 cfg.CreateMap<BookForCreationDto, Book>();
                 cfg.CreateMap<BookForUpdateDto, Book>();
@@ -129,6 +168,8 @@ namespace Library.API
             });
 
             libraryContext.EnsureSeedDataForContext();
+
+            app.UseHttpCacheHeaders();
 
             app.UseMvc(); 
         }
